@@ -1,0 +1,37 @@
+version: "3.9"
+
+services: 
+# for Database container
+#  postgres:   
+#   image: postgres:15
+#    container_name: cinefy-db
+#    restart: always
+#    environment:
+#      POSTGRES_DB: cinefy
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: Siri@019
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgressql/data
+  backend:
+    build: ./cinefy-backend
+    container_name: cinefy-backend
+#    depends_on:
+#      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/cinefy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Siri@019
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./cinefy-backend/uploads:/app/uploads 
+  
+  frontend:
+    build: ./cinefy-frontend
+    container_name: cinefy-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
