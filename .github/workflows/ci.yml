@@ -66,10 +66,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Backend Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/cinefy-backend ./backend
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/cinefy-backend ./cinefy-backend
 
       - name: Build Frontend Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/cinefy-frontend ./frontend
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/cinefy-frontend ./cinefy-frontend
 
       - name: Push Backend Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/cinefy-backend
