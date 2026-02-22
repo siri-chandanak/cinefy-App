@@ -1,66 +1,43 @@
-name: Cinefy CI/CD pipeline
+name: Cinefy Full CI/CD
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
-
-  backend:
-    name: Build Backend
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Java 21
+      # ---------- Backend ----------
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
-          cache: maven
 
       - name: Build Backend
         working-directory: cinefy-backend
         run: mvn clean package -DskipTests
 
-
-  frontend:
-    name: Build Frontend
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
+      # ---------- Frontend ----------
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: cinefy-frontend/package-lock.json
 
-      - name: Install Dependencies
+      - name: Install Frontend Dependencies
         working-directory: cinefy-frontend
-        run: npm ci
+        run: npm install
 
       - name: Build Frontend
         working-directory: cinefy-frontend
         run: npm run build
 
-
-  build-and-push:
-    name: Build and Push Docker Images
-    runs-on: ubuntu-latest
-    needs: [backend, frontend]   # 👈 IMPORTANT
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
+      # ---------- Docker ----------
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
