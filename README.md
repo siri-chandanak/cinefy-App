@@ -98,6 +98,7 @@ Enables:
 
 ## 🎥 Movie Details
 
+![Reviews Screenshot](./screenshots/movies.png)
 ![Movie Details Screenshot](./screenshots/movie-details.png)
 
 ---
@@ -116,7 +117,11 @@ Enables:
 
 ## 🛠 Admin Panel
 
-![Admin Screenshot](./screenshots/admin.png)
+![Admin Screenshot](./screenshots/admin1.png)
+
+![Admin Screenshot](./screenshots/admin2.png)
+
+![Admin Screenshot](./screenshots/admin3.png)
 
 ---
 
